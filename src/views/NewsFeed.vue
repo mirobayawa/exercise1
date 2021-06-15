@@ -4,7 +4,7 @@
     <br>
     <div>
       <ul>
-        <li v-for="post in posts" v-bind:key="post.id" class="post">
+        <li v-for="post in posts_list" v-bind:key="post.id" class="post">
             <PostsComponent :posts= "post"/>
             <br>
         </li>
@@ -15,10 +15,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import PostField from '@/components/PostField.vue'; // @ is an alias to /src
 import PostsComponent from '@/components/PostsComponent.vue';
 import { IPost } from '@/interfaces/post';
+import { posts } from '@/data/db.json';
 
 export default defineComponent({
   name: 'Home',
@@ -27,20 +28,10 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    let posts = ref<IPost[]>([]);
+    let posts_list = ref<IPost[]>(posts);
 
-    const getPosts = async () => {
-      posts.value = await fetch('http://localhost:3000/posts')
-      .then((response) => response.json())
-      .then(data => posts.value = data)
-      .catch(error => console.log(error.message))
-    };
-    onMounted(() => {
-      getPosts();
-    });
     return {
-      posts,
-      getPosts
+      posts_list,
     };
   }
 });

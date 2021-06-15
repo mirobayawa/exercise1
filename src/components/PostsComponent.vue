@@ -33,6 +33,12 @@ export default defineComponent({
   components: {
     Button,
   },
+  props: {
+    posts: {
+      type: Object as PropType<IPost>,
+      required: true,
+    },
+  },
   setup(props) {
     function deletePost() {
       axios.delete("http://localhost:3000/posts/" + props.posts['id']
@@ -53,12 +59,6 @@ export default defineComponent({
       deletePost,
       viewPost,
     }
-  },
-  props: {
-    posts: {
-      type: Object as PropType<IPost>,
-      required: true,
-    },
   }
 });
 </script>

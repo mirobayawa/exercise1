@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div class="postfield p-card p-component">
       <div class="p-card-body">
         <div class="p-card-title">
@@ -23,6 +23,7 @@ import { defineComponent, ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import TextArea from 'primevue/textarea';
+// import { posts } from '@/data/db.json';
 
 export default defineComponent({
   name: 'PostField',
@@ -32,33 +33,35 @@ export default defineComponent({
     TextArea,
   },
   setup() {
-    const title = ref("");
-    const author = ref("");
-    const msg = ref("");
 
-    function addPost() {
-      console.warn("function called", title.value, author.value, msg.value);
-      const post = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: title.value,
-          author: author.value,
-          msg: msg.value,
-        }),
-      };
-      if (msg.value !== "") {
-        fetch("http://localhost:3000/posts", post)
-        .then(response => response.json())
-        window.location.reload(true);
-      }
-    }
-    return {
-      title,
-      author,
-      msg,
-      addPost
-    }
+
+    // const title = ref("");
+    // const author = ref("");
+    // const msg = ref("");
+
+    // function addPost() {
+    //   console.warn("function called", title.value, author.value, msg.value);
+    //   const post = {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       title: title.value,
+    //       author: author.value,
+    //       msg: msg.value,
+    //     }),
+    //   };
+    //   if (msg.value !== "") {
+    //     fetch("http://localhost:3000/posts", post)
+    //     .then(response => response.json())
+    //     window.location.reload(true);
+    //   }
+    // }
+    // return {
+    //   title,
+    //   author,
+    //   msg,
+    //   addPost
+    // }
   },
 });
 </script>
@@ -71,8 +74,12 @@ h1 {
 h3 {
   margin: 40px 0 0;
 }
+.main {
+ display: flex;
+ align-content: center;
+ justify-content: center;
+}
 .postfield {
-  margin: auto;
   width: 800px;
   height: 355px;
   border-radius: 10px;
