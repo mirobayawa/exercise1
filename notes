@@ -1,0 +1,28 @@
+-for axios api
+
+(News Feed)
+// created() {
+  //   axios.get(
+  //     'https://my-json-server.typicode.com/mirobayawa/mockDB/db',
+  //   ).then((response) => {
+  //     console.log('posts', response.data.posts);
+  //     this.posts = response.data.posts;
+  //   })
+  //     .catch((error) => {
+  //       console.log(error);
+  //   });
+  // },
+
+(View Post)
+// created() {
+  //   axios.get(
+  //     `https://my-json-server.typicode.com/mirobayawa/mockDB/posts?id=${this.id}`,
+  //   ).then((response) => {
+  //     console.log('posts', response.data);
+  //     [this.posts] = response.data;
+  //     console.log(this.posts);
+  //   })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // },
