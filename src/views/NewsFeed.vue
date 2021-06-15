@@ -34,7 +34,7 @@ export default defineComponent({
       .then((response) => response.json())
       .then(data => posts.value = data)
       .catch(error => console.log(error.message))
-    }
+    };
     onMounted(() => {
       getPosts();
     });

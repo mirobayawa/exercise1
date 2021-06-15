@@ -1,11 +1,13 @@
 <template>
   <div>
     <div v-if="posts" class="post-content p-card p-component">
-      <div class="title p-card-title">
-        {{ posts.title }}
-      </div>
-      <div class="sub-title p-card-subtitle">
-        {{ posts.author }}
+      <div class="title-content">
+        <div class="title p-card-title">
+          {{ posts.title }}
+        </div>
+        <div class="sub-title p-card-subtitle">
+          {{ posts.author }}
+        </div>
       </div>
       <div class="body p-card-body" style="text-align:left">
         {{ posts.msg }}
@@ -96,6 +98,13 @@ export default defineComponent({
 body {
   align-content: left;
   margin: auto;
-
+}
+.title-content {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 </style>
