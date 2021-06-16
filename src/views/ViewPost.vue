@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { IPost } from '@/interfaces/post';
 import { posts } from '@/data/db.json';
 
@@ -23,7 +23,7 @@ export default defineComponent({
   name: 'post-content',
   props: {
     id: {
-      type: Number as PropType<number>,
+      type: Number,
       require: true,
     },
   },

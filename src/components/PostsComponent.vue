@@ -24,9 +24,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue';
-import axios from 'axios';
-import { IPost } from '@/interfaces/post';
 import Button from 'primevue/button';
+import { IPost } from '@/interfaces/post';
+import { posts } from '@/data/db.json';
 
 export default defineComponent({
   name: 'PostsComponent',
@@ -40,15 +40,10 @@ export default defineComponent({
     },
   },
   setup(props) {
+    let posts_list = ref<IPost[]>(posts);
+
     function deletePost() {
-      axios.delete("http://localhost:3000/posts/" + props.posts['id']
-      ).then((response) => {
-        console.log(response);
-        window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+      posts_list.value.splice(props.posts.id - 1);
     }
     function viewPost(id: number) {
       return {
