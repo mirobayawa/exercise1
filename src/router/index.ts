@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import routeNames from '@/enums/route_names';
+import RouteNames from '@/enums/route_names';
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: routeNames.home,
+    name: RouteNames.home,
     component: () => import('../views/Home.vue'),
   },
   {
     path: '/news-feed',
-    name: routeNames.newsFeed,
+    name: RouteNames.newsFeed,
     component: () => import('../views/NewsFeed.vue'),
   },
   {
     path: '/view-post/:id',
-    name: routeNames.viewPost,
+    name: RouteNames.viewPost,
     props: true,
     component: () => import('../views/ViewPost.vue'),
   },

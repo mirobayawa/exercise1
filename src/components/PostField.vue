@@ -11,7 +11,8 @@
           <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="true"
             rows="5" cols="30" placeholder="Whats on your mind..."/>
           <br>
-          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right" type="button" @click="addPost()"/>
+          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right" type="button" @click="addPost()"></Button>
+          <Toast position="top-right" />
         </div>
       </div>
     </div>
@@ -23,8 +24,10 @@ import { defineComponent, ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import TextArea from 'primevue/textarea';
+import Toast from 'primevue/toast';
 import { IPost } from '@/interfaces/post';
 import { posts } from '@/data/db.json';
+import { useToast } from "primevue/usetoast";
 
 export default defineComponent({
   name: 'PostField',
@@ -32,11 +35,13 @@ export default defineComponent({
     InputText,
     Button,
     TextArea,
+    Toast,
   },
   setup() {
     const title = ref("");
     const author = ref("");
     const msg = ref("");
+    const toast = useToast();
 
     let posts_list = ref<IPost[]>(posts);
 
@@ -48,6 +53,9 @@ export default defineComponent({
             author: author.value, msg: msg.value
           }
         );
+        toast.add({severity:'success', summary: 'Success!', detail:'Message Posted!', life: 3000});
+      } else {
+        toast.add({severity:'error', summary: 'Missing Details!', detail:'Please complete the form and try again.', life: 3000});
       }
       console.log("id:", posts.length, "title:", title.value,
         "author:", author.value, "msg:", msg.value);
@@ -72,33 +80,34 @@ h3 {
   margin: 40px 0 0;
 }
 .main {
- display: flex;
- align-content: center;
- justify-content: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 .postfield {
+  // margin: auto;
   width: 800px;
-  height: 355px;
+  min-height: 370px;
   border-radius: 10px;
+  padding: 5px;
 }
 .textarea {
-  width: 60%;
-  margin-bottom: 10px;
+  min-width: 60%;
   border-color: lightgray;
 }
 .input {
-  width: 60%;
+  min-width: 60%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
 .post-btn {
-  width: auto;
-  width: auto;
+  min-width: auto;
   padding-right: 15%;
   padding-left: 15%;
+  margin-top: 2%;
   border-radius: 10px;
 }
 .p-inputtext:enabled:hover {
-    border-color: gray;
+  border-color: gray;
 }
 </style>

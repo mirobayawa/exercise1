@@ -1,14 +1,16 @@
 <template>
-  <div class="view p-card p-component">
-    <div v-for="post in filter()" :key="post.id" class="p-card-body">
-      <div class="p-card-title">
-        {{ post.title }}
-      </div>
-      <div class="p-card-subtitle">
-        {{ post.author }}
-      </div>
-      <div class="p-card-content">
-        {{ post.msg }}
+  <div class="main">
+    <div class="view p-card p-component">
+      <div v-for="post in filter()" :key="post.id" class="p-card-body">
+        <div class="p-card-title">
+          {{ post.title }}
+        </div>
+        <div class="p-card-subtitle">
+          {{ post.author }}
+        </div>
+        <div class="p-card-content">
+          {{ post.msg }}
+        </div>
       </div>
     </div>
   </div>
@@ -44,10 +46,16 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.main {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
 .view {
   margin: auto;
   width: 800px;
-  height: 250px;
+  min-height: 250px;
   border-radius: 10px;
   padding: 5px;
 }

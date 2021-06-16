@@ -1,5 +1,5 @@
 <template>
-  <div class="news-feed">
+  <div class="newsfeed">
     <PostField/>
     <br>
     <div>
@@ -42,5 +42,11 @@ export default defineComponent({
 ul {
   list-style-type: none;
   padding: 0;
+}
+.newsfeed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 </style>

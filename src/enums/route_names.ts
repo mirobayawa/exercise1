@@ -1,7 +1,7 @@
-enum routeNames {
+enum RouteNames {
   home = 'Home',
   newsFeed = 'NewsFeed',
   viewPost = 'ViewPost',
 }
 
-export default routeNames;
+export default RouteNames;
