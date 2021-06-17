@@ -11,7 +11,8 @@
           <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="true"
             rows="5" cols="30" placeholder="Whats on your mind..."/>
           <br>
-          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right" type="button" @click="addPost()"></Button>
+          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right"
+            type="button" @click="addPost()"/>
           <Toast position="top-right" />
         </div>
       </div>
@@ -25,9 +26,7 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import TextArea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import { IPost } from '@/interfaces/post';
-import { posts } from '@/data/db.json';
-import { useToast } from "primevue/usetoast";
+import useAddPost from '@/use/useAddPost';
 
 export default defineComponent({
   name: 'PostField',
@@ -38,34 +37,13 @@ export default defineComponent({
     Toast,
   },
   setup() {
-    const title = ref("");
-    const author = ref("");
-    const msg = ref("");
-    const toast = useToast();
+    const addPost = useAddPost();
 
-    let posts_list = ref<IPost[]>(posts);
-
-    function addPost() {
-      if (title.value && author.value && msg.value !== "") {
-          posts_list.value.push(
-          {
-            id: posts.length + 1, title: title.value,
-            author: author.value, msg: msg.value
-          }
-        );
-        toast.add({severity:'success', summary: 'Success!', detail:'Message Posted!', life: 3000});
-      } else {
-        toast.add({severity:'error', summary: 'Missing Details!', detail:'Please complete the form and try again.', life: 3000});
-      }
-      console.log("id:", posts.length, "title:", title.value,
-        "author:", author.value, "msg:", msg.value);
-    }
     return {
-      title,
-      author,
-      msg,
-      posts_list,
-      addPost
+      addPost: addPost.addPost,
+      title: addPost.title,
+      author: addPost.author,
+      msg: addPost.msg,
     }
   },
 });

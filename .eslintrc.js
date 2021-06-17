@@ -12,6 +12,8 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    "import/prefer-default-export": "error",
+    "import/no-default-export": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

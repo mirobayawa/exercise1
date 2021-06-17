@@ -12,10 +12,11 @@
       <div class="body p-card-body" style="text-align:left">
         {{ posts.msg }}
       </div>
-      <ConfirmPopup></ConfirmPopup>
       <div style="margin-top:30px">
-        <Button class="delete-post p-button-raised p-button-danger" label="Delete" @click="confirm2"/>
-        <Button class="view-post p-button-raised p-button-secondary" label="View" @click="viewPost(posts.id)"/>
+        <Button class="delete-post p-button-raised p-button-danger" icon="pi pi-trash" iconPos="right"
+          label="Remove" @click="deletePost"/>
+        <Button class="view-post p-button-raised p-button-secondary" icon="pi pi-folder-open" iconPos="right"
+          label="View" @click="viewPost(posts.id)"/>
         <ConfirmPopup group="popup"></ConfirmPopup>
       </div>
     </div>
@@ -26,11 +27,10 @@
 import { defineComponent, PropType, ref } from 'vue';
 import Button from 'primevue/button';
 import { IPost } from '@/interfaces/post';
-import { posts } from '@/data/db.json';
 import router from '@/router';
-import routeNames from '@/enums/route_names';
+import RouteNames from '@/enums/route_names';
 import ConfirmPopup from 'primevue/confirmpopup';
-import { useConfirm } from "primevue/useconfirm";
+import useDeletePost from '@/use/useDeletePost';
 
 export default defineComponent({
   name: 'PostsComponent',
@@ -45,31 +45,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const confirm = useConfirm();
-
-    let posts_list = ref<IPost[]>(posts);
+    const deletePost = useDeletePost(props.posts['id']); //composable
 
     function viewPost(id: number) {
-      return router.push({name: routeNames.viewPost, params: {id: id}});
+      return router.push({name: RouteNames.viewPost, params: {id: id}});
     }
-    const confirm2 = (event: any) => {
-      confirm.require({
-        target: event.currentTarget,
-        group: 'popup',
-        message: 'Do you want to delete this record?',
-        icon: 'pi pi-exclamation-triangle',
-        acceptClass: 'p-button-danger',
-        accept: () => {
-          posts_list.value.splice(props.posts.id - 1, 1);
-        },
-        reject: () => {
-
-        }
-      });
-    };
     return {
       viewPost,
-      confirm2,
+      deletePost: deletePost.confirm2,
     }
   }
 });
@@ -101,7 +84,6 @@ export default defineComponent({
   padding-right: 5%;
 }
 .delete-post {
-  // padding: 10px 30px;
   margin-bottom: 20px;
   margin-right: 10px;
   cursor: pointer;

@@ -4,7 +4,7 @@
     <br>
     <div>
       <ul>
-        <li v-for="post in posts_list" v-bind:key="post.id" class="post">
+        <li v-for="post in postsList" v-bind:key="post.id" class="post">
             <PostsComponent :posts= "post"/>
             <br>
         </li>
@@ -28,10 +28,10 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    let posts_list = ref<IPost[]>(posts);
+    let postsList = ref<IPost[]>(posts);
 
     return {
-      posts_list,
+      postsList,
     };
   }
 });

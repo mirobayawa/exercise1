@@ -11,6 +11,8 @@
         <div class="p-card-content">
           {{ post.msg }}
         </div>
+        <Button class="edit-post p-button-raised p-button-primary" icon="pi pi-pencil" iconPos="right"
+          label="Edit"/>
       </div>
     </div>
   </div>
@@ -20,9 +22,13 @@
 import { defineComponent, ref } from 'vue';
 import { IPost } from '@/interfaces/post';
 import { posts } from '@/data/db.json';
+import Button from 'primevue/button';
 
 export default defineComponent({
   name: 'post-content',
+  components: {
+    Button,
+  },
   props: {
     id: {
       type: Number,
@@ -30,15 +36,15 @@ export default defineComponent({
     },
   },
   setup(props) {
-    let posts_list = ref<IPost[]>(posts);
+    let postsList = ref<IPost[]>(posts);
 
     function filter() {
-      return posts_list.value.filter(item => {
+      return postsList.value.filter(item => {
         return item.id == props.id
       })
     }
     return {
-      posts_list,
+      postsList,
       filter
     };
   }
@@ -53,6 +59,9 @@ export default defineComponent({
   justify-content: center;
 }
 .view {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
   margin: auto;
   width: 800px;
   min-height: 250px;
@@ -74,5 +83,12 @@ p {
 }
 h3 {
   justify-content: center;
+}
+.edit-post {
+  cursor: pointer;
+  border-radius: 10px;
+  float: right;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>
