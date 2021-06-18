@@ -67,7 +67,6 @@ export default defineComponent({
   justify-content: center;
 }
 .post-content {
-  // margin: auto;
   flex-flow: column wrap;
   width: 800px;
   min-height: 300px;
@@ -100,6 +99,7 @@ export default defineComponent({
   flex-direction: column;
   flex-flow: column wrap;
   align-content: flex-start;
+  justify-content: flex-start;
   margin-left: 10px;
   margin-top: 10px;
 }
