@@ -45,7 +45,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const deletePost = useDeletePost(props.posts['id']); //composable
+    const deletePost = useDeletePost(props.posts['id']);
 
     function viewPost(id: number) {
       return router.push({name: RouteNames.viewPost, params: {id: id}});

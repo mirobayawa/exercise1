@@ -19,7 +19,7 @@
               <InputText class="input" v-model="title" :value="post.title" type="text" placeholder="Title" style="width"/>
               <br>
               <TextArea class="textarea" id="edit-field" v-model="msg" :value="post.msg" name="edit-field" :autoResize="true"
-                rows="5" wrap="physical" cols="30"/>
+                rows="5" wrap="physical" cols="30" />
             </div>
             <template #footer>
               <Button label="Save" icon="pi pi-check" iconPos="right" @click="savePost(title, msg)" autofocus />
@@ -34,14 +34,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { IPost } from '@/interfaces/post';
-import { posts } from '@/data/db.json';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import TextArea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import useEditPost from '@/use/useEditPost';
-// import useViewPost from '@/use/useViewPost';
+import useViewPost from '@/use/useViewPost';
 
 export default defineComponent({
   name: 'post-content',
@@ -62,12 +60,8 @@ export default defineComponent({
     const title = ('');
     const msg = ('');
 
-    let postsList = ref<IPost[]>(posts);
-    const postDetails = postsList.value.filter(item => {
-      return item.id == props.id
-    })
-
-    const savePost = useEditPost(postDetails, displayModal);
+    const viewPost = useViewPost(props.id);
+    const savePost = useEditPost(viewPost.postDetails, displayModal);
 
     const openModal = () => {
       displayModal.value = true;
@@ -77,13 +71,13 @@ export default defineComponent({
     };
 
     return {
-      postDetails,
       displayModal,
       title,
       msg,
+      postDetails: viewPost.postDetails,
+      savePost: savePost.savePost,
       openModal,
       closeModal,
-      savePost: savePost.savePost,
     };
   }
 });
@@ -102,6 +96,7 @@ export default defineComponent({
   flex-flow: column wrap;
   justify-content: flex-start;
   max-width: 800px;
+  min-width: 800px;
   min-height: 250px;
   border-radius: 10px;
   padding: 5px;
