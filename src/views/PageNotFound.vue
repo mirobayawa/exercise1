@@ -16,7 +16,7 @@ import RouteNames from '@/enums/route_names';
 import router from '@/router';
 
 export default defineComponent({
-  name: 'page-not-found',
+  name: 'PageNotFound',
   components: {
     Button,
   },

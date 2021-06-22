@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div v-if="post" class="main">
     <div class="view p-card p-component">
-      <div v-for="post in postDetails" :key="post.id" class="p-card-body">
+      <div class="p-card-body">
         <div class="title p-card-title">
           {{ post.title }}
         </div>
@@ -14,7 +14,7 @@
         <div class="footer">
           <Button class="edit-post p-button-raised p-button-primary" icon="pi pi-pencil" iconPos="right" label="Edit" @click="openModal"/>
           <Dialog class="modal p-fluid" header="Edit Post" v-model:visible="displayModal" :breakpoints="{'960px': '75vw'}"
-           :style="{width: '50vw'}" :modal="true">
+            :style="{width: '50vw'}" :modal="true">
             <div class="dialog">
               <InputText class="input" v-model="title" :value="post.title" type="text" placeholder="Title" style="width"/>
               <br>
@@ -30,6 +30,9 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <PageNotFound></PageNotFound>
+  </div>
 </template>
 
 <script lang="ts">
@@ -40,6 +43,7 @@ import TextArea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import useEditPost from '@/use/useEditPost';
 import useViewPost from '@/use/useViewPost';
+import PageNotFound from './PageNotFound.vue';
 
 export default defineComponent({
   name: 'post-content',
@@ -47,7 +51,8 @@ export default defineComponent({
     Button,
     Dialog,
     TextArea,
-    InputText
+    InputText,
+    PageNotFound,
   },
   props: {
     id: {
@@ -61,7 +66,7 @@ export default defineComponent({
     const msg = ('');
 
     const viewPost = useViewPost(props.id);
-    const savePost = useEditPost(viewPost.postDetails, displayModal);
+    const savePost = useEditPost(viewPost.post, displayModal);
 
     const openModal = () => {
       displayModal.value = true;
@@ -69,12 +74,11 @@ export default defineComponent({
     const closeModal = () => {
       displayModal.value = false;
     };
-
     return {
       displayModal,
       title,
       msg,
-      postDetails: viewPost.postDetails,
+      post: viewPost.post,
       savePost: savePost.savePost,
       openModal,
       closeModal,

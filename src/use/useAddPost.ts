@@ -1,8 +1,7 @@
-import { IPost } from '@/interfaces/post';
 import { ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import { posts } from '@/data/db.json';
-import useLoadNewsFeed from './useLoadNewsFeed';
+import { IPost } from '@/interfaces/post';
 
 export default function useAddPost() {
   const title = ref('');
@@ -10,11 +9,11 @@ export default function useAddPost() {
   const msg = ref('');
   const toast = useToast();
 
-  const loadNewsFeed = useLoadNewsFeed();
+  const postsList = ref<IPost[]>(posts);
 
   function addPost() {
     if (title.value && author.value && msg.value !== '') {
-      loadNewsFeed.postsList.value.push(
+      postsList.value.push(
         {
           id: posts.length + 1,
           title: title.value,

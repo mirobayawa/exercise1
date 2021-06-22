@@ -4,13 +4,12 @@
     <br>
     <div>
       <ul>
-        <li v-for="post in reversePostsList" v-bind:key="post.id" class="post">
+        <li v-for="post in reversePostsList" :key="post.id" class="post">
             <PostsComponent :posts= "post"/>
             <br>
         </li>
       </ul>
     </div>
-    <br>
   </div>
 </template>
 

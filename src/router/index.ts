@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/ViewPost.vue'),
   },
   {
-    path: '/:catchAll(.*)*',
+    path: '/:catchAll(.*)',
     component: () => import('../views/PageNotFound.vue'),
   },
 ];

@@ -5,9 +5,10 @@ import { posts } from '@/data/db.json';
 
 export default function useViewPost(id: number | undefined) {
   const postsList = ref<IPost[]>(posts);
-  const postDetails = postsList.value.filter((item) => item.id == id);
+  const post: IPost = postsList.value.find((item) => item.id == id) as IPost;
 
   return {
-    postDetails,
+    post,
+    postsList,
   };
 }
