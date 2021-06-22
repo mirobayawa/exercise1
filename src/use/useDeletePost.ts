@@ -1,3 +1,4 @@
+/* eslint eqeqeq: "off" */
 import { ref } from 'vue';
 import { IPost } from '@/interfaces/post';
 import { useConfirm } from 'primevue/useconfirm';
@@ -15,7 +16,13 @@ export default function useDeletePost(id: number) {
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'p-button-danger',
     accept: () => {
-      postsList.value.splice(id - 1, 1); // change to composable
+      postsList.value.forEach((post) => {
+        if (post.id == id) {
+          postsList.value.splice(postsList.value.indexOf(post), 1);
+        }
+      });
+      // change to composable
+      console.log(postsList.value);
     },
   });
   return {

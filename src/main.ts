@@ -6,7 +6,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import App from './App.vue';
 import router from './router';
 
-import 'primevue/resources/themes/nova-vue/theme.css'; // theme
+import 'primevue/resources/themes/saga-green/theme.css'; // theme
 import 'primevue/resources/primevue.min.css'; // core css
 import 'primeicons/primeicons.css'; // icons
 

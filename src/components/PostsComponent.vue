@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import Button from 'primevue/button';
 import { IPost } from '@/interfaces/post';
 import router from '@/router';

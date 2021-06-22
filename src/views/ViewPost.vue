@@ -96,7 +96,6 @@ export default defineComponent({
   flex-flow: column wrap;
   justify-content: flex-start;
   max-width: 800px;
-  min-width: 800px;
   min-height: 250px;
   border-radius: 10px;
   padding: 5px;

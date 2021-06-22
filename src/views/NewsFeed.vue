@@ -4,7 +4,7 @@
     <br>
     <div>
       <ul>
-        <li v-for="post in postsList" v-bind:key="post.id" class="post">
+        <li v-for="post in reversePostsList" v-bind:key="post.id" class="post">
             <PostsComponent :posts= "post"/>
             <br>
         </li>
@@ -15,11 +15,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import PostField from '@/components/PostField.vue'; // @ is an alias to /src
 import PostsComponent from '@/components/PostsComponent.vue';
-import { IPost } from '@/interfaces/post';
-import { posts } from '@/data/db.json';
+import useLoadNewsFeed from '@/use/useLoadNewsFeed';
 
 export default defineComponent({
   name: 'Home',
@@ -28,10 +27,10 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    let postsList = ref<IPost[]>(posts);
+    let loadNewsFeed = useLoadNewsFeed();
 
     return {
-      postsList,
+      reversePostsList: loadNewsFeed.reversePostsList,
     };
   }
 });
