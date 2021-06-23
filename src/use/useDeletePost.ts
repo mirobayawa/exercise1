@@ -1,4 +1,3 @@
-/* eslint eqeqeq: "off" */
 import { ref } from 'vue';
 import { IPost } from '@/interfaces/post';
 import { useConfirm } from 'primevue/useconfirm';
@@ -17,7 +16,7 @@ export default function useDeletePost(id: number) {
     acceptClass: 'p-button-danger',
     accept: () => {
       postsList.value.forEach((post) => {
-        if (post.id == id) {
+        if (post.id === Number(id)) {
           postsList.value.splice(postsList.value.indexOf(post), 1);
         }
       });

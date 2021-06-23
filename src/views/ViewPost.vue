@@ -15,16 +15,16 @@
           <Button class="edit-post p-button-raised p-button-primary" icon="pi pi-pencil" iconPos="right" label="Edit" @click="openModal"/>
           <Dialog class="modal p-fluid" header="Edit Post" v-model:visible="displayModal" :breakpoints="{'960px': '75vw'}"
             :style="{width: '50vw'}" :modal="true">
-            <div class="dialog">
-              <InputText class="input" v-model="title" :value="post.title" type="text" placeholder="Title" style="width"/>
-              <br>
-              <TextArea class="textarea" id="edit-field" v-model="msg" :value="post.msg" name="edit-field" :autoResize="true"
-                rows="5" wrap="physical" cols="30" />
-            </div>
-            <template #footer>
-              <Button label="Save" icon="pi pi-check" iconPos="right" @click="savePost(title, msg)" autofocus />
-              <Button label="Cancel" icon="pi pi-times" iconPos="right" @click="closeModal" class="p-button-text"/>
-            </template>
+          <div class="dialog">
+            <InputText class="input" v-model="title" :value="post.title" type="text" placeholder="Title" style="width"/>
+            <br>
+            <TextArea class="textarea" id="edit-field" v-model="msg" :value="post.msg" name="edit-field" :autoResize="true"
+              rows="5" wrap="physical" cols="30" />
+          </div>
+          <template #footer>
+            <Button label="Save" icon="pi pi-check" iconPos="right" @click="savePost(title, msg)" autofocus />
+            <Button label="Cancel" icon="pi pi-times" iconPos="right" @click="closeModal" class="p-button-text"/>
+          </template>
           </Dialog>
         </div>
         <Toast position="top-right" />
