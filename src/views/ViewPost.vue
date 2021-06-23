@@ -27,6 +27,7 @@
             </template>
           </Dialog>
         </div>
+        <Toast position="top-right" />
       </div>
     </div>
   </div>
@@ -43,7 +44,8 @@ import TextArea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import useEditPost from '@/use/useEditPost';
 import useViewPost from '@/use/useViewPost';
-import PageNotFound from './PageNotFound.vue';
+import PageNotFound from '@/views/PageNotFound.vue';
+import Toast from 'primevue/toast';
 
 export default defineComponent({
   name: 'post-content',
@@ -53,6 +55,7 @@ export default defineComponent({
     TextArea,
     InputText,
     PageNotFound,
+    Toast,
   },
   props: {
     id: {

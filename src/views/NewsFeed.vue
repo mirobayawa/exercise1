@@ -46,5 +46,6 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  padding: 10px;
 }
 </style>

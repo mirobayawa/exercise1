@@ -1,16 +1,14 @@
 <template>
   <div class="main">
     <div v-if="posts" class="post-content p-card p-component">
-      <div class="title-content">
-        <div class="title p-card-title">
-          {{ posts.title }}
-        </div>
-        <div class="sub-title p-card-subtitle">
-          {{ posts.author }}
-        </div>
+      <div class="title-content p-card-title">
+        {{ posts.title }}
+      </div>
+      <div class="title-content p-card-subtitle">
+        {{ posts.author }}
       </div>
       <div class="body p-card-body" style="text-align:left">
-        {{ posts.msg }}
+        <p>{{ posts.msg }}</p>
       </div>
       <div style="margin-top:30px">
         <Button class="delete-post p-button-raised p-button-danger" icon="pi pi-trash" iconPos="right"
@@ -62,16 +60,15 @@ export default defineComponent({
 <style scoped lang="scss">
 .main {
   display: flex;
-  flex-direction: row;
   align-content: center;
   justify-content: center;
 }
 .post-content {
-  flex-flow: column wrap;
   width: 800px;
+  min-width: auto;
   min-height: 300px;
   border-radius: 10px;
-  padding: 5px;
+  padding: 25px 5px 0px 10px;
 }
 .view-post {
   margin-bottom: 20px;
@@ -96,11 +93,8 @@ export default defineComponent({
 }
 .title-content {
   display: flex;
-  flex-direction: column;
-  flex-flow: column wrap;
   align-content: flex-start;
   justify-content: flex-start;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: 15px;
 }
 </style>

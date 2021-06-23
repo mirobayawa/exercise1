@@ -6,10 +6,10 @@
           Whats on your mind?
         </div>
         <div class="p-card-content">
-          <InputText class="input" v-model="title" type="text" placeholder="Title" style="width"/>
-          <InputText class="input" v-model="author" type="text" placeholder="Author" style="width"/>
-          <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="true"
-            rows="5" cols="30" placeholder="Whats on your mind..."/>
+          <InputText class="input-title" v-model="title" type="text" placeholder="Title" style="width"/>
+          <InputText class="input-author" v-model="author" type="text" placeholder="Author" style="width"/>
+          <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="false"
+            rows="6" cols="50" placeholder="Whats on your mind..."/>
           <br>
           <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right"
             type="button" @click="addPost()"/>
@@ -57,18 +57,25 @@ export default defineComponent({
   justify-content: center;
 }
 .postfield {
-  // margin: auto;
   width: 800px;
-  min-height: 370px;
+  min-width: auto;
+  min-height: 300px;
   border-radius: 10px;
-  padding: 5px;
 }
 .textarea {
-  min-width: 60%;
+  min-width: 40%;
+  width: 60%;
   border-color: lightgray;
 }
-.input {
-  min-width: 60%;
+.input-title {
+  min-width: 40%;
+  width: 60%;
+  margin-bottom: 10px;
+  border-color: lightgray;
+}
+.input-author {
+  min-width: 30%;
+  width: 60%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
