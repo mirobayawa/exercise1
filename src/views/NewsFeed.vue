@@ -5,7 +5,7 @@
     <div>
       <ul>
         <li v-for="post in reversePostsList" :key="post.id" class="post">
-            <PostsComponent :posts= "post"/>
+            <PostsComponent :posts="post"/>
             <br>
         </li>
       </ul>

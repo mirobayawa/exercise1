@@ -5,6 +5,7 @@
         {{ posts.title }}
       </div>
       <div class="title-content p-card-subtitle">
+        <Avatar icon="pi pi-user" class="p-mr-2" size="small" shape="circle" style="margin-right: 6px;"/>
         {{ posts.author }}
       </div>
       <div class="body p-card-body" style="text-align:left">
@@ -13,7 +14,7 @@
       <div style="margin-top:30px">
         <Button class="delete-post p-button-raised p-button-danger" icon="pi pi-trash" iconPos="right"
           label="Remove" @click="deletePost"/>
-        <Button class="view-post p-button-raised p-button-secondary" icon="pi pi-folder-open" iconPos="right"
+        <Button class="view-post p-button-raised p-button-info" icon="pi pi-folder-open" iconPos="right"
           label="View" @click="viewPost(posts.id)"/>
         <ConfirmPopup group="popup"></ConfirmPopup>
       </div>
@@ -29,12 +30,14 @@ import router from '@/router';
 import RouteNames from '@/enums/route_names';
 import ConfirmPopup from 'primevue/confirmpopup';
 import useDeletePost from '@/use/useDeletePost';
+import Avatar from 'primevue/avatar';
 
 export default defineComponent({
   name: 'PostsComponent',
   components: {
     Button,
     ConfirmPopup,
+    Avatar,
   },
   props: {
     posts: {
@@ -96,5 +99,6 @@ export default defineComponent({
   align-content: flex-start;
   justify-content: flex-start;
   margin-left: 15px;
+  align-items: center;
 }
 </style>

@@ -5,11 +5,20 @@
         <div class="p-card-title">
           Whats on your mind?
         </div>
-        <div class="p-card-content">
-          <InputText class="input-title" v-model="title" type="text" placeholder="Title" style="width"/>
-          <InputText class="input-author" v-model="author" type="text" placeholder="Author" style="width"/>
-          <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="false"
-            rows="6" cols="50" placeholder="Whats on your mind..."/>
+        <div class="p-card-content" style="display: flex; flex-direction: column; align-items: center;">
+          <span class="p-float-label" style="width: 60%;">
+            <InputText id="title" class="input-title" v-model="title" type="text"/>
+            <label for="title">Title</label>
+          </span>
+          <span class="p-float-label" style="width: 60%;">
+          <InputText id="author" class="input-author" v-model="author" type="text" />
+            <label for="author">Author</label>
+          </span>
+          <span class="p-float-label" style="width: 60%;">
+          <TextArea id="message" class="textarea" v-model="msg" name="postfield" :autoResize="false"
+            rows="6" cols="50" />
+            <label for="message">Whats on your mind...</label>
+          </span>
           <br>
           <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right"
             type="button" @click="addPost()"/>
@@ -64,18 +73,18 @@ export default defineComponent({
 }
 .textarea {
   min-width: 40%;
-  width: 60%;
+  width: 100%;
   border-color: lightgray;
 }
 .input-title {
   min-width: 40%;
-  width: 60%;
+  width: 100%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
 .input-author {
-  min-width: 30%;
-  width: 60%;
+  min-width: 40%;
+  width: 100%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
@@ -85,8 +94,5 @@ export default defineComponent({
   padding-left: 15%;
   margin-top: 2%;
   border-radius: 10px;
-}
-.p-inputtext:enabled:hover {
-  border-color: gray;
 }
 </style>
