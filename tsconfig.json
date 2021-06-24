@@ -8,9 +8,11 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "allowJs": true,
     "types": [
       "webpack-env"
     ],
@@ -30,9 +32,10 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "src/**/*.js",
+    "src/**/*.jsx",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
-, "src/services/EventService.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,79 +1,79 @@
 <template>
-  <div>
+  <div class="main">
     <div v-if="posts" class="post-content p-card p-component">
-      <div class="title-content">
-        <div class="title p-card-title">
-          {{ posts.title }}
-        </div>
-        <div class="sub-title p-card-subtitle">
-          {{ posts.author }}
-        </div>
+      <div class="title-content p-card-title">
+        {{ posts.title }}
+      </div>
+      <div class="title-content p-card-subtitle">
+        <Avatar icon="pi pi-user" class="p-mr-2" size="small" shape="circle" style="margin-right: 6px;"/>
+        {{ posts.author }}
       </div>
       <div class="body p-card-body" style="text-align:left">
-        {{ posts.msg }}
+        <p>{{ posts.msg }}</p>
       </div>
       <div style="margin-top:30px">
-        <Button class="delete-post p-button-danger" label="Delete" @click="deletePost()"/>
-        <router-link class-active="active" :to="viewPost(posts.id)">
-          <Button class="view-post p-button-secondary" label="View"/>
-        </router-link>
+        <Button class="delete-post p-button-raised p-button-danger" icon="pi pi-trash" iconPos="right"
+          label="Remove" @click="deletePost"/>
+        <Button class="view-post p-button-raised p-button-info" icon="pi pi-folder-open" iconPos="right"
+          label="View" @click="viewPost(posts.id)"/>
+        <ConfirmPopup group="popup"></ConfirmPopup>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
-import axios from 'axios';
-import { IPost } from '@/interfaces/post';
+import { defineComponent, PropType } from 'vue';
 import Button from 'primevue/button';
+import { IPost } from '@/interfaces/post';
+import router from '@/router';
+import RouteNames from '@/enums/route_names';
+import ConfirmPopup from 'primevue/confirmpopup';
+import useDeletePost from '@/use/useDeletePost';
+import Avatar from 'primevue/avatar';
 
 export default defineComponent({
   name: 'PostsComponent',
   components: {
     Button,
-  },
-  setup(props) {
-    function deletePost() {
-      axios.delete("http://localhost:3000/posts/" + props.posts['id']
-      ).then((response) => {
-        console.log(response);
-        window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-    }
-    function viewPost(id: number) {
-      return {
-        name: 'ViewPost', params: {id: id}
-      }
-    }
-    return {
-      deletePost,
-      viewPost,
-    }
+    ConfirmPopup,
+    Avatar,
   },
   props: {
     posts: {
       type: Object as PropType<IPost>,
       required: true,
     },
+  },
+  setup(props) {
+    const deletePost = useDeletePost(props.posts['id']);
+
+    function viewPost(id: number) {
+      return router.push({name: RouteNames.viewPost, params: {id: id}});
+    }
+    return {
+      viewPost,
+      deletePost: deletePost.confirm2,
+    }
   }
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.main {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
 .post-content {
-  margin: auto;
   width: 800px;
-  height: 300px;
+  min-width: auto;
+  min-height: 300px;
   border-radius: 10px;
-  padding: 5px;
+  padding: 25px 5px 0px 10px;
 }
 .view-post {
-  // padding: 10px 30px;
   margin-bottom: 20px;
   margin-right: 10px;
   cursor: pointer;
@@ -83,7 +83,6 @@ export default defineComponent({
   padding-right: 5%;
 }
 .delete-post {
-  // padding: 10px 30px;
   margin-bottom: 20px;
   margin-right: 10px;
   cursor: pointer;
@@ -95,16 +94,11 @@ export default defineComponent({
 .sub-title {
   margin: auto;
 }
-body {
-  align-content: left;
-  margin: auto;
-}
 .title-content {
   display: flex;
-  flex-direction: column;
-  flex-flow: column wrap;
   align-content: flex-start;
-  margin-left: 10px;
-  margin-top: 10px;
+  justify-content: flex-start;
+  margin-left: 15px;
+  align-items: center;
 }
 </style>

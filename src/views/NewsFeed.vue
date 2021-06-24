@@ -1,24 +1,23 @@
 <template>
-  <div class="news-feed">
+  <div class="newsfeed">
     <PostField/>
     <br>
     <div>
       <ul>
-        <li v-for="post in posts" v-bind:key="post.id" class="post">
-            <PostsComponent :posts= "post"/>
+        <li v-for="post in reversePostsList" :key="post.id" class="post">
+            <PostsComponent :posts="post"/>
             <br>
         </li>
       </ul>
     </div>
-    <br>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent } from 'vue';
 import PostField from '@/components/PostField.vue'; // @ is an alias to /src
 import PostsComponent from '@/components/PostsComponent.vue';
-import { IPost } from '@/interfaces/post';
+import useLoadNewsFeed from '@/use/useLoadNewsFeed';
 
 export default defineComponent({
   name: 'Home',
@@ -27,20 +26,10 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    let posts = ref<IPost[]>([]);
+    let loadNewsFeed = useLoadNewsFeed();
 
-    const getPosts = async () => {
-      posts.value = await fetch('http://localhost:3000/posts')
-      .then((response) => response.json())
-      .then(data => posts.value = data)
-      .catch(error => console.log(error.message))
-    };
-    onMounted(() => {
-      getPosts();
-    });
     return {
-      posts,
-      getPosts
+      reversePostsList: loadNewsFeed.reversePostsList,
     };
   }
 });
@@ -51,5 +40,12 @@ export default defineComponent({
 ul {
   list-style-type: none;
   padding: 0;
+}
+.newsfeed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
 }
 </style>

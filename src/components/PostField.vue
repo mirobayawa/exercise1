@@ -1,17 +1,28 @@
 <template>
-  <div>
+  <div class="main">
     <div class="postfield p-card p-component">
       <div class="p-card-body">
         <div class="p-card-title">
           Whats on your mind?
         </div>
-        <div class="p-card-content">
-          <InputText class="input" v-model="title" type="text" placeholder="Title" style="width"/>
-          <InputText class="input" v-model="author" type="text" placeholder="Author" style="width"/>
-          <TextArea class="textarea" v-model="msg" id="postfield" name="postfield" :autoResize="true"
-            rows="5" cols="30" placeholder="Whats on your mind..."/>
+        <div class="p-card-content" style="display: flex; flex-direction: column; align-items: center;">
+          <span class="p-float-label" style="width: 60%;">
+            <InputText id="title" class="input-title" v-model="title" type="text"/>
+            <label for="title">Title</label>
+          </span>
+          <span class="p-float-label" style="width: 60%;">
+          <InputText id="author" class="input-author" v-model="author" type="text" />
+            <label for="author">Author</label>
+          </span>
+          <span class="p-float-label" style="width: 60%;">
+          <TextArea id="message" class="textarea" v-model="msg" name="postfield" :autoResize="false"
+            rows="6" cols="50" />
+            <label for="message">Whats on your mind...</label>
+          </span>
           <br>
-          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right" type="button" @click="addPost()"/>
+          <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right"
+            type="button" @click="addPost()"/>
+          <Toast position="top-right" />
         </div>
       </div>
     </div>
@@ -19,10 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import TextArea from 'primevue/textarea';
+import Toast from 'primevue/toast';
+import useAddPost from '@/use/useAddPost';
 
 export default defineComponent({
   name: 'PostField',
@@ -30,34 +43,16 @@ export default defineComponent({
     InputText,
     Button,
     TextArea,
+    Toast,
   },
   setup() {
-    const title = ref("");
-    const author = ref("");
-    const msg = ref("");
+    const addPost = useAddPost();
 
-    function addPost() {
-      console.warn("function called", title.value, author.value, msg.value);
-      const post = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: title.value,
-          author: author.value,
-          msg: msg.value,
-        }),
-      };
-      if (msg.value !== "") {
-        fetch("http://localhost:3000/posts", post)
-        .then(response => response.json())
-        window.location.reload(true);
-      }
-    }
     return {
-      title,
-      author,
-      msg,
-      addPost
+      addPost: addPost.addPost,
+      title: addPost.title,
+      author: addPost.author,
+      msg: addPost.msg,
     }
   },
 });
@@ -65,36 +60,39 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h1 {
-  font-size: 40pt;
-}
-h3 {
-  margin: 40px 0 0;
+.main {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 .postfield {
-  margin: auto;
   width: 800px;
-  height: 355px;
+  min-width: auto;
+  min-height: 300px;
   border-radius: 10px;
 }
 .textarea {
-  width: 60%;
+  min-width: 40%;
+  width: 100%;
+  border-color: lightgray;
+}
+.input-title {
+  min-width: 40%;
+  width: 100%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
-.input {
-  width: 60%;
+.input-author {
+  min-width: 40%;
+  width: 100%;
   margin-bottom: 10px;
   border-color: lightgray;
 }
 .post-btn {
-  width: auto;
-  width: auto;
+  min-width: auto;
   padding-right: 15%;
   padding-left: 15%;
+  margin-top: 2%;
   border-radius: 10px;
-}
-.p-inputtext:enabled:hover {
-    border-color: gray;
 }
 </style>
