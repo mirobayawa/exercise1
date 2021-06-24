@@ -13,14 +13,12 @@ export default function useAddPost() {
 
   function addPost() {
     if (title.value && author.value && msg.value !== '') {
-      postsList.value.push(
-        {
-          id: posts.length + 1,
-          title: title.value,
-          author: author.value,
-          msg: msg.value,
-        },
-      );
+      postsList.value.push({
+        id: posts.length + 1,
+        title: title.value,
+        author: author.value,
+        msg: msg.value,
+      });
       toast.add({
         severity: 'success',
         summary: 'Success!',
