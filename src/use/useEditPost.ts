@@ -7,7 +7,8 @@ export default function useEditPost(post: IPost, displayModal: Ref<boolean>) {
   const savePost = (newTitle: string, newMessage: string) => {
     if (newTitle === '') {
       newTitle = post.title;
-    } else if (newMessage === '') {
+    }
+    if (newMessage === '') {
       newMessage = post.msg;
     }
     post.title = newTitle;

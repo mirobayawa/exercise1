@@ -77,6 +77,7 @@ export default defineComponent({
     const closeModal = () => {
       displayModal.value = false;
     };
+
     return {
       displayModal,
       title,
