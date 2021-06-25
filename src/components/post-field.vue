@@ -19,7 +19,6 @@
             rows="6" cols="50" />
             <label for="message">Whats on your mind...</label>
           </span>
-          <br>
           <Button label="Post" class="post-btn p-button-raised" icon="pi pi-send" iconPos="right"
             type="button" @click="addPost()"/>
           <Toast position="top-right" />
@@ -30,12 +29,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import TextArea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import useAddPost from '@/use/useAddPost';
+import { useAddPost } from '@/use/use-post';
+import { useToast } from 'primevue/usetoast';
 
 export default defineComponent({
   name: 'PostField',
@@ -46,13 +46,37 @@ export default defineComponent({
     Toast,
   },
   setup() {
-    const addPost = useAddPost();
+    const title = ref('');
+    const author = ref('');
+    const msg = ref('');
+
+    const toast = useToast();
+    const add_post = useAddPost(title, author, msg);
+
+    function addPost() {
+      if (title.value && author.value && msg.value !== '') {
+        add_post.addPost();
+        toast.add({
+          severity: 'success',
+          summary: 'Success!',
+          detail: 'Message Posted!',
+          life: 3000,
+        });
+      } else {
+        toast.add({
+          severity: 'error',
+          summary: 'Missing Details!',
+          detail: 'Please complete the form and try again.',
+          life: 3000,
+        });
+      }
+    }
 
     return {
-      addPost: addPost.addPost,
-      title: addPost.title,
-      author: addPost.author,
-      msg: addPost.msg,
+      addPost,
+      title,
+      author,
+      msg,
     }
   },
 });
@@ -92,7 +116,7 @@ export default defineComponent({
   min-width: auto;
   padding-right: 15%;
   padding-left: 15%;
-  margin-top: 2%;
+  margin-top: 10px;
   border-radius: 10px;
 }
 </style>

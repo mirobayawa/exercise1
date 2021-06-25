@@ -1,7 +1,7 @@
 <template>
   <h1>404 Error Page</h1>
   <p class="zoom-area"><b>Oops</b> page not found. Sorry about that...</p>
-  <Button label="Return Home?" class="p-button-raised" @click="home"></Button>
+  <Button label="Return Home?" class="p-button-raised" @click="toHome"></Button>
   <section class="error-container">
     <span>4</span>
     <span><span class="screen-reader-text">0</span></span>
@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Button from 'primevue/button';
-import RouteNames from '@/enums/route_names';
+import RouteNames from '@/enums/route-names';
 import router from '@/router';
 
 export default defineComponent({
@@ -21,11 +21,11 @@ export default defineComponent({
     Button,
   },
   setup() {
-    function home() {
-      return router.push({name: RouteNames.home});
+    function toHome() {
+      return router.push({name: RouteNames.Home});
     }
     return {
-      home,
+      toHome,
     }
   }
 });

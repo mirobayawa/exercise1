@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import RouteNames from '@/enums/route_names';
+import RouteNames from '@/enums/route-names';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: RouteNames.home,
-    component: () => import('../views/Home.vue'),
+    name: RouteNames.Home,
+    component: () => import('../views/home.vue'),
   },
   {
     path: '/news-feed',
-    name: RouteNames.newsFeed,
-    component: () => import('../views/NewsFeed.vue'),
+    name: RouteNames.NewsFeed,
+    component: () => import('../views/news-feed.vue'),
   },
   {
     path: '/view-post/:id',
-    name: RouteNames.viewPost,
+    name: RouteNames.ViewPost,
     props: true,
-    component: () => import('../views/ViewPost.vue'),
+    component: () => import('../views/view-post.vue'),
   },
   {
     path: '/:catchAll(.*)',
-    component: () => import('../views/PageNotFound.vue'),
+    component: () => import('../views/page-not-found.vue'),
   },
 ];
 

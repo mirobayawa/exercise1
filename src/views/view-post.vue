@@ -12,20 +12,7 @@
           {{ post.msg }}
         </div>
         <div class="footer">
-          <Button class="edit-post p-button-raised p-button-primary" icon="pi pi-pencil" iconPos="right" label="Edit" @click="openModal"/>
-          <Dialog class="modal p-fluid" header="Edit Post" v-model:visible="displayModal" :breakpoints="{'960px': '75vw'}"
-            :style="{width: '50vw'}" :modal="true">
-          <div class="dialog">
-            <InputText class="input" v-model="title" :value="post.title" type="text" placeholder="Title" style="width"/>
-            <br>
-            <TextArea class="textarea" id="edit-field" v-model="msg" :value="post.msg" name="edit-field" :autoResize="true"
-              rows="5" wrap="physical" cols="30" />
-          </div>
-          <template #footer>
-            <Button label="Save" icon="pi pi-check" iconPos="right" @click="savePost(title, msg)" autofocus />
-            <Button label="Cancel" icon="pi pi-times" iconPos="right" @click="closeModal" class="p-button-text"/>
-          </template>
-          </Dialog>
+          <EditPost :id="$props.id"></EditPost>
         </div>
         <Toast position="top-right" />
       </div>
@@ -42,10 +29,10 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import TextArea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
-import useEditPost from '@/use/useEditPost';
-import useViewPost from '@/use/useViewPost';
-import PageNotFound from '@/views/PageNotFound.vue';
+import { useViewPost } from '@/use/use-post';
+import PageNotFound from '@/views/page-not-found.vue';
 import Toast from 'primevue/toast';
+import EditPost from '@/components/edit-post.vue';
 
 export default defineComponent({
   name: 'post-content',
@@ -56,7 +43,8 @@ export default defineComponent({
     InputText,
     PageNotFound,
     Toast,
-  },
+    EditPost,
+},
   props: {
     id: {
       type: Number,
@@ -64,28 +52,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const displayModal = ref(false);
-    const title = ('');
-    const msg = ('');
-
     const viewPost = useViewPost(props.id);
-    const savePost = useEditPost(viewPost.post, displayModal);
-
-    const openModal = () => {
-      displayModal.value = true;
-    };
-    const closeModal = () => {
-      displayModal.value = false;
-    };
 
     return {
-      displayModal,
-      title,
-      msg,
       post: viewPost.post,
-      savePost: savePost.savePost,
-      openModal,
-      closeModal,
     };
   }
 });

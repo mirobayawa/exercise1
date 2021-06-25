@@ -15,9 +15,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import PostField from '@/components/PostField.vue'; // @ is an alias to /src
-import PostsComponent from '@/components/PostsComponent.vue';
-import useLoadNewsFeed from '@/use/useLoadNewsFeed';
+import PostField from '@/components/post-field.vue'; // @ is an alias to /src
+import PostsComponent from '@/components/posts-component.vue';
+import { useLoadNewsFeed } from '@/use/use-post';
 
 export default defineComponent({
   name: 'Home',
@@ -26,7 +26,7 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    let loadNewsFeed = useLoadNewsFeed();
+    const loadNewsFeed = useLoadNewsFeed();
 
     return {
       reversePostsList: loadNewsFeed.reversePostsList,

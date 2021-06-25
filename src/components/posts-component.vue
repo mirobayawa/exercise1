@@ -13,7 +13,7 @@
       </div>
       <div style="margin-top:30px">
         <Button class="delete-post p-button-raised p-button-danger" icon="pi pi-trash" iconPos="right"
-          label="Remove" @click="deletePost"/>
+          label="Remove" @click="confirm_delete"/>
         <Button class="view-post p-button-raised p-button-info" icon="pi pi-folder-open" iconPos="right"
           label="View" @click="viewPost(posts.id)"/>
         <ConfirmPopup group="popup"></ConfirmPopup>
@@ -27,10 +27,11 @@ import { defineComponent, PropType } from 'vue';
 import Button from 'primevue/button';
 import { IPost } from '@/interfaces/post';
 import router from '@/router';
-import RouteNames from '@/enums/route_names';
+import RouteNames from '@/enums/route-names';
 import ConfirmPopup from 'primevue/confirmpopup';
-import useDeletePost from '@/use/useDeletePost';
+import { useDeletePost } from '@/use/use-post';
 import Avatar from 'primevue/avatar';
+import { useConfirm } from 'primevue/useconfirm';
 
 export default defineComponent({
   name: 'PostsComponent',
@@ -46,14 +47,27 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const confirm = useConfirm();
+
     const deletePost = useDeletePost(props.posts['id']);
 
+    const confirm_delete = (event: any) => confirm.require({
+      target: event.currentTarget,
+      group: 'popup',
+      message: 'Do you want to delete this record?',
+      icon: 'pi pi-exclamation-triangle',
+      acceptClass: 'p-button-danger',
+      accept: () => {
+        deletePost.deletePost();
+      },
+    });
+
     function viewPost(id: number) {
-      return router.push({name: RouteNames.viewPost, params: {id: id}});
+      return router.push({name: RouteNames.ViewPost, params: {id: id}});
     }
     return {
       viewPost,
-      deletePost: deletePost.confirm2,
+      confirm_delete,
     }
   }
 });
