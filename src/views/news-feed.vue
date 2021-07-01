@@ -26,10 +26,10 @@ export default defineComponent({
     PostsComponent,
   },
   setup() {
-    const loadNewsFeed = useLoadNewsFeed();
+    const { reversePostsList } = useLoadNewsFeed();
 
     return {
-      reversePostsList: loadNewsFeed.reversePostsList,
+      reversePostsList,
     };
   }
 });

@@ -1,24 +1,38 @@
-import { computed, Ref, ref } from 'vue';
-import { posts } from '@/data/db.json';
+import { computed, Ref } from 'vue';
 import { IPost } from '@/interfaces/post';
+import useStore from '@/use/use-store';
+
+export function useLoadNewsFeed() {
+  const { postsList } = useStore();
+  const reversePostsList = computed(() => postsList.value.slice(0).reverse());
+
+  return {
+    reversePostsList,
+  };
+}
+
+export function useViewPost(id: number | undefined) {
+  const { postsList } = useStore();
+  const post: IPost = postsList.value.find((item) => item.id === Number(id)) as IPost;
+
+  return {
+    post,
+  };
+}
 
 export function useAddPost(title: Ref<string>, author: Ref<string>, msg: Ref<string>) {
-  const postsList = ref<IPost[]>(posts);
+  const { postsList } = useStore();
 
   function addPost() {
     postsList.value.push({
-      id: posts.length + 1,
+      id: postsList.value.length + 1,
       title: title.value,
       author: author.value,
       msg: msg.value,
     });
-    console.log('id:', posts.length, 'title:', title.value,
-      'author:', author.value, 'msg:', msg.value);
   }
+
   return {
-    title,
-    author,
-    msg,
     addPost,
   };
 }
@@ -36,13 +50,14 @@ export function useEditPost(post: IPost, displayModal: Ref<boolean>) {
 
     displayModal.value = false;
   }
+
   return {
     savePost,
   };
 }
 
 export function useDeletePost(id: number) {
-  const postsList = ref<IPost[]>(posts);
+  const { postsList } = useStore();
 
   function deletePost() {
     postsList.value.forEach((post) => {
@@ -54,25 +69,5 @@ export function useDeletePost(id: number) {
 
   return {
     deletePost,
-  };
-}
-
-export function useLoadNewsFeed() {
-  const postsList = ref<IPost[]>(posts);
-  const reversePostsList = computed(() => postsList.value.slice(0).reverse());
-
-  return {
-    postsList,
-    reversePostsList,
-  };
-}
-
-export function useViewPost(id: number | undefined) {
-  const postsList = ref<IPost[]>(posts);
-  const post: IPost = postsList.value.find((item) => item.id === Number(id)) as IPost;
-
-  return {
-    post,
-    postsList,
   };
 }

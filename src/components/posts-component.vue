@@ -65,6 +65,7 @@ export default defineComponent({
     function viewPost(id: number) {
       return router.push({name: RouteNames.ViewPost, params: {id: id}});
     }
+
     return {
       viewPost,
       confirm_delete,
